@@ -1,0 +1,356 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CODAP Guide: Screen Time vs Mental Wellness (Kaggle Survey)</title>
+  <style>
+    /* style.css */
+    :root{
+      --bg: #ffffff;
+      --text: #111;
+      --muted: #444;
+      --card: #f6f7fb;
+      --border: #e2e4ee;
+      --accent: #1f6feb;
+      --accent2:#0b4aa2;
+      --callout:#fff5c7;
+      --callout-border:#e7d36b;
+      --tip:#eaf3ff;
+      --tip-border:#b8d6ff;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height:1.45;
+    }
+
+    .hero{
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color:#fff;
+      padding: 26px 16px;
+    }
+    .wrap{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    h1{
+      margin:0 0 8px;
+      font-size: 1.9rem;
+    }
+    .sub{
+      margin:0 0 12px;
+      opacity:0.95;
+    }
+    .meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+    }
+    .pill{
+      display:inline-block;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.9rem;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      margin: 14px 0;
+    }
+    .card h2{
+      margin: 0 0 10px;
+      font-size: 1.35rem;
+    }
+    .card h3{
+      margin: 12px 0 6px;
+      font-size: 1.05rem;
+    }
+    .step-title{
+      margin-top: 0;
+      color: var(--muted);
+    }
+
+    .small{
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    a{ color: var(--accent); }
+    a:hover{ text-decoration: none; }
+
+    .code{
+      background:#111;
+      color:#f2f2f2;
+      padding: 10px 12px;
+      border-radius: 10px;
+      overflow:auto;
+      font-size: 0.92rem;
+    }
+
+    .callout{
+      background: var(--callout);
+      border: 1px solid var(--callout-border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-top: 12px;
+    }
+
+    .tip{
+      background: var(--tip);
+      border: 1px solid var(--tip-border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-top: 12px;
+    }
+
+    ol{ padding-left: 20px; }
+    li{ margin: 6px 0; }
+
+    .qs{
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+    .qs li{ margin: 6px 0; }
+
+    .checks{
+      padding-left: 18px;
+    }
+    .checks li{ margin: 6px 0; }
+
+    .footer{
+      color: var(--muted);
+      text-align:center;
+      font-size: 0.95rem;
+      padding: 18px 0 28px;
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <h1>CODAP Data Investigation: Screen Time vs Mental Wellness</h1>
+      <p class="sub">
+        In this activity, you will use CODAP to explore how screen time relates to stress, sleep, productivity, and mental wellness.
+      </p>
+      <div class="meta">
+        <div class="pill">Dataset: 400 survey participants</div>
+        <div class="pill">Tool: CODAP</div>
+        <div class="pill">Skills: graphing + data moves</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h2>Where the data came from</h2>
+      <p>
+        We are using the <b>Mental Wellness &amp; Screen Time Survey (400 Users)</b> dataset from Kaggle.
+        It contains survey responses about daily screen usage and wellness indicators (sleep, stress, productivity, and a mental wellness index).
+      </p>
+      <p class="small">
+        Source (Kaggle): <a href="https://www.kaggle.com/datasets/adharshinikumar/screentime-vs-mentalwellness-survey-2025" target="_blank" rel="noopener">screentime-vs-mentalwellness-survey-2025</a>
+      </p>
+      <div class="callout">
+        <b>Reminder:</b> This dataset can show patterns (correlations), but it does not prove cause-and-effect.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Column names in our dataset</h2>
+      <p>These are the columns you will see in CODAP:</p>
+      <pre class="code">user_id
+age
+gender
+occupation
+work_mode
+screen_time_hours
+work_screen_hours
+leisure_screen_hours
+sleep_hours
+sleep_quality_1_5
+stress_level_0_10
+productivity_0_100
+exercise_minutes_per_week
+social_hours_per_week
+mental_wellness_index_0_100</pre>
+      <p class="small">
+        Each row is one participant. Numerical columns are measured as hours, minutes, or scores.
+      </p>
+    </section>
+
+
+    <section class="card">
+      <h2>Step 1 — Stress Level vs Screen Time</h2>
+      <p class="step-title">Goal: Make a scatterplot and describe the relationship.</p>
+      <ol>
+        <li>Create a new <b>Graph</b> in CODAP.</li>
+        <li>Drag <b>screen_time_hours</b> to the x-axis.</li>
+        <li>Drag <b>stress_level_0_10</b> to the y-axis.</li>
+        <li>Rename the graph: <b>“1. Stress Level vs Screen Time”</b></li>
+        <li>Add a note under the plot answering:</li>
+      </ol>
+      <ul class="qs">
+        <li>Do people with higher screen time tend to have higher stress?</li>
+        <li>Are there outliers (points far from most others)?</li>
+        <li>Is there a trend (upward, downward, or no clear pattern)?</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Step 2 — Screen Time vs Productivity (with Stress Level)</h2>
+      <p class="step-title">Goal: Add a third variable using the legend.</p>
+      <ol>
+        <li>Create a new graph.</li>
+        <li>x-axis: <b>screen_time_hours</b></li>
+        <li>y-axis: <b>productivity_0_100</b></li>
+        <li>Drag <b>stress_level_0_10</b> to the <b>Legend</b>.</li>
+        <li>Rename the graph: <b>“2. Screen Time vs Productivity and Stress Level”</b></li>
+        <li>Add a note answering:</li>
+      </ol>
+      <ul class="qs">
+        <li>Is there a relationship between productivity and screen time?</li>
+        <li>Do different stress levels appear in different parts of the graph?</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Step 3 — Create “Screen vs Sleep Ratio” + analyze mental wellness</h2>
+      <p class="step-title">Goal: Make a derived attribute and explore what it means.</p>
+
+      <h3>3A. Create the derived attribute</h3>
+      <ol>
+        <li>In the data table, click the <b>+</b> to add a new attribute.</li>
+        <li>Name it: <b>Screen_vs_Sleep_Ratio</b></li>
+        <li>Choose <b>Formula</b> and enter:</li>
+      </ol>
+      <pre class="code">screen_time_hours / sleep_hours</pre>
+
+      <div class="callout">
+        <b>How to interpret Screen vs Sleep Ratio:</b>
+        <ul>
+          <li><b>1.0</b> means the person spent the same amount of time on screens as sleeping.</li>
+          <li><b>0.5</b> means the person spent half as much time on screens as sleeping.</li>
+          <li><b>2.0</b> means the person spent twice as much time on screens as sleeping.</li>
+        </ul>
+      </div>
+
+      <h3>3B. Make the graph</h3>
+      <ol>
+        <li>Create a new graph.</li>
+        <li>x-axis: <b>Screen_vs_Sleep_Ratio</b></li>
+        <li>y-axis: <b>mental_wellness_index_0_100</b></li>
+        <li>Rename the graph: <b>“3. Screen/Sleep Ratio vs Mental Wellness”</b></li>
+      </ol>
+
+      <h3>3C. Add a distribution + normal curve (for the ratio)</h3>
+      <ol>
+        <li>Create a second graph (a distribution plot) for <b>Screen_vs_Sleep_Ratio</b>.</li>
+        <li>Put <b>Screen_vs_Sleep_Ratio</b> on the axis so you get a dot plot/histogram-like distribution.</li>
+        <li>In the <b>Measures</b> tab, turn on <b>Normal Curve</b>.</li>
+        <li>Rename this graph: <b>“3D. Distribution of Screen/Sleep Ratio”</b></li>
+      </ol>
+
+      <p><b>Add a note answering:</b></p>
+      <ul class="qs">
+        <li>Did the average survey respondent spend more time on screens or more time sleeping?</li>
+        <li>What was the average Screen_vs_Sleep_Ratio?</li>
+        <li>What relationship do you notice between Screen_vs_Sleep_Ratio and mental_wellness_index_0_100?</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Step 4 — Create “Sleep Category” + compare work modes</h2>
+      <p class="step-title">Goal: Turn sleep hours into categories and compare groups.</p>
+
+      <h3>4A. Create the derived attribute</h3>
+      <ol>
+        <li>Click the <b>+</b> to add a new attribute.</li>
+        <li>Name it: <b>Sleep_Category</b></li>
+        <li>Choose <b>Formula</b> and paste this:</li>
+      </ol>
+      <pre class="code">if(sleep_hours &lt; 7, "Deficit",
+  if(sleep_hours &lt;= 9, "Ideal", "Extra")
+)</pre>
+
+      <div class="callout">
+        <b>Meaning:</b>
+        <ul>
+          <li><b>Deficit</b> = less than 7 hours</li>
+          <li><b>Ideal</b> = 7–9 hours</li>
+          <li><b>Extra</b> = more than 9 hours</li>
+        </ul>
+      </div>
+
+      <h3>4B. Make the graph</h3>
+      <ol>
+        <li>Create a new graph.</li>
+        <li>x-axis: <b>work_mode</b></li>
+        <li>Legend: <b>Sleep_Category</b></li>
+        <li>Rename the graph: <b>“4. Work Mode vs Sleep Deficit”</b></li>
+        <li>In the <b>Configuration</b> tab, select:</li>
+      </ol>
+      <ul class="qs">
+        <li><b>Fuse dots into Bars</b></li>
+        <li><b>Percent</b></li>
+      </ul>
+
+      <p><b>Add a note answering:</b></p>
+      <ul class="qs">
+        <li>Which work mode was most likely to have <b>Ideal</b> sleep?</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Step 5 — Create a new data collection (grouped by work mode) + box plots</h2>
+      <p class="step-title">Goal: Use data collections to compare mental wellness across work modes.</p>
+
+      <h3>5A. Create the new data collection</h3>
+      <ol>
+        <li>In the data table, drag <b>work_mode</b> to the left side of the table to <b>group</b> by work mode.</li>
+        <li>CODAP will create a <b>new collection</b> where each row represents a work mode group.</li>
+      </ol>
+
+      <h3>5B. Make box plots comparing mental wellness across work modes</h3>
+      <ol>
+        <li>Create a new graph.</li>
+        <li>x-axis: <b>work_mode</b></li>
+        <li>y-axis: <b>mental_wellness_index_0_100</b></li>
+        <li>Set the plot type to <b>Box Plot</b> (or use the graph options to display box plots).</li>
+        <li>Rename the graph: <b>“5. Mental Wellness by Work Mode (Box Plots)”</b></li>
+      </ol>
+
+      <p><b>Add a note answering:</b></p>
+      <ul class="qs">
+        <li>Which work mode is most likely to have the <b>highest</b> mental wellness index?</li>
+        <li>Which work mode is most likely to have the <b>lowest</b> mental wellness index?</li>
+        <li>How do you know from the box plots (median, spread, outliers)?</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>What to turn in</h2>
+      <ul class="checks">
+        <li>Graphs titled exactly as shown in Steps 1–5</li>
+        <li>A short note (1–3 sentences) for each step’s questions</li>
+        <li>Your two derived attributes: <b>Screen_vs_Sleep_Ratio</b> and <b>Sleep_Category</b></li>
+      </ul>
+    </section>
+
+    <footer class="footer">
+      CODAP Guide • Screen Time vs Mental Wellness • Dataset from Kaggle (Survey, 400 users)
+    </footer>
+  </main>
+</body>
+</html>
